@@ -1,0 +1,86 @@
+<!--
+
+非父子组件之间的通信
+
+每个vue 实例都有 $on 方法，可以监听事件
+
+注意，不同组件的，bus属性都指向同一个 vue实例
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <counter :num=20 ref="c1"></counter>
+            <counter :num=30 ref="c2"></counter>
+        </div>
+
+        </div>
+        <script type="text/javascript">
+
+            //注意，不同组件的，bus属性都指向同一个 vue实例
+            Vue.prototype.bus = new Vue();
+
+            Vue.component('counter', {
+                props: ['num'],
+                data: function() {
+                    return {
+                        count: this.num
+                    }
+                },
+                template: '<button v-on:click="myclick">当前组件值{{ count }}</button>',
+                methods: {
+                    myclick: function () {
+                        /*this.bus 是一个 vue实例，当然可以有 emit方法
+                            那为什么用 this.bus.$emit 不用 this.$emit?
+                            我们试试 this.bus.on 能不能接受到 this.$emit 事件
+
+                            this.$emit('tellNum', this.count);
+                            不能，本人只能监听本人的事件
+
+                            为什么不同 this.$emit 和 on, 因为你自己发出，自己接受，第二个组件中没执行
+                            但是用了 bus, 第二个组件中的bus会变, 不同组件的 bus是一样的，只要一个组件执行了bus, 另外的组件也会执行
+
+                            vue 实例都有 $on 事件
+                        */
+                        this.bus.$emit('tellNum', this.count);
+                        // this.$emit('tellNum', this.count)
+                    }
+                },
+                mounted: function() {
+                    var _this = this;
+                    this.bus.$on('tellNum', function(val) {
+                    // this.$on('tellNum', function(val) {
+                        alert(val)
+                        _this.count = val;
+                    })
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                },
+                methods: {
+                    handleEventClick(value) {
+                        console.log("父亲执行了");
+                        console.log(value)
+                    },
+                    handleClick() {
+                        alert(333);
+                    }
+                },
+                mounted: function() {
+                    // 两个组件的bus 是否相等
+                    // true 他们两个的bus 属性是相同的
+                    console.log(this.$refs.c1.bus === this.$refs.c2.bus)
+                }
+            })
+        </script>
+    </body>
+</html>

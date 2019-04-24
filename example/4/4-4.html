@@ -1,0 +1,64 @@
+<!--
+
+子组件中不能使用原生
+
+这个click 必须是子组件中注册的才行
+<button-counter @click="handleClick"></button-counter>
+
+想要原生的
+
+<button-counter @click.native="handleClick"></button-counter>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <button-counter v-on:eventclick="handleEventClick" :num = 100  numtype=23 @click.native="handleClick"></button-counter>
+        </div>
+
+        </div>
+        <script type="text/javascript">
+            Vue.component('button-counter', {
+                props: ['num', 'numtype'],
+                data: function() {
+                    return {
+                        count: this.num
+                    }
+                },
+                template: '<button v-on:click="myclick">当前值{{ count }}</button>',
+                mounted: function(){
+                    console.log(this.numtype);
+                    console.log(typeof this.numtype);
+                },
+                methods: {
+                    myclick: function () {
+                        this.count++;
+                        this.$emit('eventclick', this.count)
+                        //触发自定义事件，这里的参数是自定义事件名称
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                },
+                methods: {
+                    handleEventClick(value) {
+                        console.log("父亲执行了");
+                        console.log(value)
+                    },
+                    handleClick() {
+                        alert(333);
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
