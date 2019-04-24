@@ -1,0 +1,58 @@
+<!--
+ 子组件 emit 一个定义的事件
+
+ 父子组件使用$emit和v-on时，子组件使用$emit触发，父组件在实例中v-on自定义事件监听。
+
+注意：父组件监听子组件触发的事件，不能用$on侦听子组件抛出的事件，而必须在模板里直接用v-on绑定。
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <button-counter v-on:eventclick="handleEventClick" :num = 100  numtype=23></button-counter>
+        </div>
+
+        </div>
+        <script type="text/javascript">
+            Vue.component('button-counter', {
+                props: ['num', 'numtype'],
+                data: function() {
+                    return {
+                        count: this.num
+                    }
+                },
+                template: '<button v-on:click="myclick">{{ count }}</button>',
+                mounted: function(){
+                    console.log(this.numtype);
+                    console.log(typeof this.numtype);
+                },
+                methods: {
+                    myclick: function () {
+                        this.count++;
+                        this.$emit('eventclick', this.count)
+                        //触发自定义事件，这里的参数是自定义事件名称
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                },
+                methods: {
+                    handleEventClick(value) {
+                        console.log("父亲执行了");
+                        console.log(value)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

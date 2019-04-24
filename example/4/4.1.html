@@ -1,0 +1,81 @@
+<!--
+ 使用is解决什么问题
+
+在table、 select 中直接使用组件是不行的
+
+<row></row>
+
+需要写成
+<tr is=""></tr>
+<option is=""></option>
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+
+        <div id="app">
+            <table>
+                <tbody>
+                    <!-- <row></row> -->
+                    <tr is="row"></tr>
+                </tbody>
+            </table>
+
+            <select>
+                <option is="op"></op>
+            </select>
+
+            <div @click="handleClick" ref="mydiv">请点击我</div>
+
+            <div>
+                <count ref="mycount"></count>
+            </div>
+
+        </div>
+        <script type="text/javascript">
+            Vue.component('row', {
+                data() {
+                    return {
+                        content: 123
+                    }
+                },
+                template: '<tr><td>{{ content }}</td></tr>',
+            })
+
+            Vue.component('op', {
+                template: '<option value ="苹果">苹果</option>'
+            })
+
+            Vue.component('count', {
+                data() {
+                    return {
+                        num: 0
+                    }
+                },
+                template: '<span>{{ num }}</span>'
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    cents: 20000
+                },
+                methods: {
+                    handleClick() {
+                        this.$refs.mydiv.innerHTML = "测试";
+                        this.$refs.mycount.num++;
+                        console.log(this.$refs.mydiv);
+                        console.log(this.$refs.mycount);
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
