@@ -20,12 +20,21 @@ export default {
   name: 'HomeSwiper',
   data() {
     return {
-        swiperOption: []
+        swiperOption: {
+            pagination: '.swiper-pagination',
+            loop: true,
+            autoPlay: true
+          }
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+    .wrapper
+        width 100%
+        height 26.6vw
+        bakcground-color #eee
+        .swiper-img
+          width 100%
 </style>
