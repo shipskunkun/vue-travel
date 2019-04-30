@@ -1,0 +1,66 @@
+<!--
+    为了复现Object.keys获取键值问题
+    最后发现是子组件、父组件 钩子先后执行顺序问题
+    或者 使用 setTimeout 或 nextTick 中
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <!-- <script src="../vue/vue.js"></script> -->
+        <script crossorigin="anonymous" integrity="sha384-8t+aLluUVnn5SPPG/NbeZCH6TWIvaXIm/gDbutRvtEeElzxxWaZN+G/ZIEdI/f+y" src="https://lib.baomitu.com/vue/2.6.10/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <mybutton :obj = obj  :obj3=obj3 :obj4=obj4></mybutton>
+        </div>
+
+
+        <script type="text/javascript">
+            Vue.component('mybutton', {
+                'template': '<div><div v-for="item in obj">{{ item }} </div>',
+                props: ['obj','obj3', 'obj4'],
+                data () {
+                },
+                mounted(){
+                    console.log("son mounted");
+                    console.log('接受的键值', Object.keys(this.obj));
+                    console.log('接受的值3', Object.keys(this.obj3));
+                    console.log('接受的值4', Object.keys(this.obj4));
+                }
+            })
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    obj: {
+                    },
+                    obj2: {
+                        name: 222,
+                        age: 222
+                    },
+                    obj3: {
+                        name: '',
+                        age: ''
+                    },
+                    obj4: {}
+                },
+                mounted: function() {
+                    console.log("parent mounted, and set obj now");
+                    this.$set(this.obj, 'name', 123);
+                    this.$set(this.obj, 'age', 123);
+
+                    
+                    this.obj3.name = 333;
+                    this.obj3.age = 333
+                    
+                    this.obj4 = JSON.parse(JSON.stringify(this.obj))
+
+                },
+                methods: {
+                }
+            })
+        </script>
+    </body>
+</html>
