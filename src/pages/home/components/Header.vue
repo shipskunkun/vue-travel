@@ -1,6 +1,15 @@
 <template>
     <div class="header">
-      头部
+      <div class="header-left">
+        <div class="iconfont back-icon">&#xe624;</div>
+      </div>
+      <div class="header-input">
+        <span class="iconfont">&#xe632;</span>
+        输入城市/景点/游玩主题</div>
+        <div class="header-right">{{this.city}}
+          <span class="iconfont irrow-icon">&#xe64a;</span>
+        </div>
+
     </div>
 </template>
 
@@ -9,8 +18,10 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'HomeHeader',
-  computed: {
-    ...mapState(['city'])
+  data() {
+      return {
+        city: '北京'
+      }
   }
 }
 </script>

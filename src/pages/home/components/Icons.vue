@@ -9,14 +9,6 @@
             <p class="icon-content">{{item.desc}}</p>
           </div>
         </swiper-slide>
-        <!-- <swiper-slide>
-          <div class="icon">
-            <div class="icon-img">
-              <img  class="icon-img-content" src="">
-            </div>
-            <p class="icon-content">热门景点</p>
-          </div>
-        </swiper-slide> -->
       </swiper>
     </div>
 </template>
