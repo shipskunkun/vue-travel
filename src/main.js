@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import fastClick from 'fastclick'
 import router from './router'
+import store from './store'
 import Axios from 'axios'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
@@ -24,5 +25,6 @@ fastClick.attach(document.body)
 new Vue({
 	el:' #app',
 	router,
+	store,
   	render: h => h(App)
 }).$mount('#app')
