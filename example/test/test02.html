@@ -1,0 +1,40 @@
+<!--
+父亲向孩子传递时候，孩子会触发 update 函数吗？
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+
+            <model :list="list">
+            </model>
+
+
+        </div>
+        <script type="text/javascript">
+            Vue.component('model', {
+                template: `
+                    <div v-for="item in list">
+                        <p>{{ item }}</p>
+                    </div>
+                `,
+                data() {
+                },
+                props: ['list']
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    list: [1,2,3,4,5]
+                }
+            })
+        </script>
+    </body>
+</html>

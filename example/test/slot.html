@@ -1,0 +1,71 @@
+<!--
+普通插槽
+默认插槽
+具名插槽
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+
+            <model :v2="v2" :v3="v3">
+                <template v-slot:head>
+                </template>
+                <div slot="body">我会显示么</div>
+                <!-- <template v-slot="foot">//不会显示 -->
+                <template v-slot:foot>
+                    <p>我是尾部</p>
+                    <p>{{ v2 }}</p>
+                </template>
+            </model>
+
+            <todolist></todolist>
+
+        </div>
+        <script type="text/javascript">
+            Vue.component('model', {
+                template: `
+                    <div>
+                        <slot name="head" :v1="v1">{{v1}}</slot>
+                        <slot name="body"></slot>
+                        <slot name="foot"></slot>
+                    </div>
+                `,
+                data() {
+                    return {
+                        v1: "v111"
+                    }
+                }
+            })
+
+            Vue.component('todolist', {
+                template: `
+                    <ul>
+                        <li v-for="item in todos">
+                            <slot>{{ item.name }}</slot>
+                        </li>
+                    </ul>
+                `,
+                data() {
+                    return {
+                        todos: [{id:1,name:1},{id:2,name:2},{id:3,name:3}]
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    v2: 'v222',
+                    v3: 'v333'
+                }
+            })
+        </script>
+    </body>
+</html>
