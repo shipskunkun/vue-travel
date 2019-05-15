@@ -4,6 +4,7 @@
 
 [github地址](https://github.com/surmon-china/vue-awesome-swiper)
 
+[example code](https://github.com/surmon-china/vue-awesome-swiper/tree/master/examples)
 
 ```
 mount with global

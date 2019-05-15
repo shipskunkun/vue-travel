@@ -1,0 +1,76 @@
+<!--
+切换组件
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <script src="../vue/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class="tabs">
+                <div class="tab" :class="{'active': currentTab==='tab1'}" @click="toggleTab('prince')"><a>小王子</a></div>
+                <div class="tab" :class="{'active': currentTab==='tab2'}" @click="toggleTab('rose')"><a>小玫瑰</a></div>
+                <div class="tab" :class="{'active': currentTab==='tab3'}" @click="toggleTab('fox')"><a>小狐狸</a></div>
+            </div>
+
+            <keep-alive>
+                <component :is="currentTab"></component>
+            </keep-alive>
+        </div>
+
+
+
+
+        <script type="text/javascript">
+
+            Vue.component('tab1', {
+                props: ['num'],
+                data: function() {
+                },
+                template: '<div>111</div>',
+                destroyed:function(){
+                    console.log('111 被destroyed');
+                }
+            })
+
+            Vue.component('tab2', {
+                props: ['num'],
+                data: function() {
+                },
+                template: '<div>222</div>',
+                destroyed:function(){
+                    console.log('222 被destroyed');
+                }
+            })
+
+            Vue.component('tab3', {
+                props: ['num'],
+                data: function() {
+                },
+                template: '<div>333</div>',
+                destroyed:function(){
+                    console.log('333 被destroyed');
+                }
+            })
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    obj: [{
+                        "pm.24": "lalala",
+                        "text": 90
+                    }]
+                },
+                mounted: function() {
+
+                },
+                methods: {
+                }
+            })
+        </script>
+    </body>
+</html>

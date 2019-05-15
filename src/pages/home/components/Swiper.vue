@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption" v-if="showSwiper">
+    <swiper :options="swiperOption" >
     <!-- slides -->
     <swiper-slide v-for="item in list" :key="item.id">
       <img class="swiper-img" :src="item.src">
@@ -25,30 +25,53 @@ export default {
   props: {
     list: Array
   },
-  data () {
-    return {
-      swiperOption: {
-        pagination: '.swiper-pagination',
-        loop: true,
-        autoPlay: true
+  data() {
+      return {
+        swiperOption: {
+          autoplay: {
+            // delay: 3000,
+            // disableOnInteraction: false,
+            //stopOnLastSlide: false
+          },
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          observeParents: true,
+          observer: true
+        }
       }
+  },
+  watch: {
+    list(newval, oldval) {
+      console.log("watch", newval);
+      console.log(this.mylist)
     }
+  },
+  updated() {
+    console.log('updated', this.list);
+    console.log(this.mylist);
+
   },
   computed: {
     showSwiper () {
       return this.list.length
     }
+  },
+  mounted() {
+    console.log('list=', this.list);
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .wrapper >>> .swiper-pagination-bullet-active
-    background-color: #fff
   .wrapper
     width 100%
     height 26.6vw
     bakcground-color #eee
     .swiper-img
       width 100%
+    .swiper-pagination-bullet-active
+      background-color: #fff
 </style>
