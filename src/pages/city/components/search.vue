@@ -89,7 +89,8 @@ export default {
     }
   },
   mounted () {
-    this.scroll = new Bscroll(this.$refs.search)
+    this.scroll = new Bscroll(this.$refs.search);
+    setTimeout(()=> console.log('接受的参数', this.cities), 0)
   }
 }
 </script>
