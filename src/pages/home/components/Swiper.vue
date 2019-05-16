@@ -40,18 +40,18 @@ export default {
           },
           observeParents: true,
           observer: true
-        }
+        },
+        mylist: this.list
       }
   },
   watch: {
     list(newval, oldval) {
-      console.log("watch", newval);
-      console.log(this.mylist)
+      this.mylist =  newval;
+      console.log("执行watch");
     }
   },
   updated() {
-    console.log('updated', this.list);
-    console.log(this.mylist);
+    console.log('执行updated');
 
   },
   computed: {
