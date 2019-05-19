@@ -25,7 +25,7 @@ export default {
     DetailHeader,
     DetailList
   },
-  data () {
+  data() {
     return {
       list: [],
       sightName: '',
@@ -35,17 +35,17 @@ export default {
     }
   },
   methods: {
-    getDetailInfo () {
-      axios.get('/api/detail.json', {
-        params: {
-          id: this.$route.params.id
-        }
-      })
+    getDetailInfo() {
+      axios.get('/api/detail', {
+          params: {
+            id: this.$route.params.id
+          }
+        })
         .then(res => this.handleGetDataSucc(res))
         .catch(err => console.log('出错啦:' + err))
     },
-    handleGetDataSucc (res) {
-      res = res.data
+    handleGetDataSucc(res) {
+      res = res.data.data
       if (res.ret && res.data) {
         const data = res.data
         this.sightName = data.sightName
@@ -55,11 +55,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.lastId = this.$route.params.id
     this.getDetailInfo()
   },
-  activated () {
+  activated() {
     if (this.lastId !== this.$route.params.id) {
       this.lastId = this.$route.params.id
       this.getDetailInfo()

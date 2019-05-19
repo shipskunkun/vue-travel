@@ -59,7 +59,6 @@ export default {
     },
     getHomeInfoSucc (res) {
       //  使用axios方法传进来的res数据
-      console.log(res);
       res = res.data.data
       if (res.ret && res.data) {
         const data = res.data
@@ -76,8 +75,6 @@ export default {
       this.getHomeInfo2();
   },
   activated() {
-    console.log('执行');
-    console.log(this.lastCity, this.city);
     if(this.lastCity !== this.city) {
         this.lastCity = this.city;
         this.getHomeInfo2();
