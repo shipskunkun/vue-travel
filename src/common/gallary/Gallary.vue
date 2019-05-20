@@ -40,10 +40,8 @@ export default {
       swiperOption: {
         pagination: {
             el: '.swiper-pagination',
-            clickable: true
+            type: 'fraction'
         },
-        // pagination: '.swiper-pagination',
-        paginationType: 'fraction',
         observeParents: true,
         observer: true
       }
