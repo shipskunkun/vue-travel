@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import Axios from 'axios'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-
+import 'babel-polyfill'
 
 import 'styles/reset.css'
 import 'styles/border.css'
