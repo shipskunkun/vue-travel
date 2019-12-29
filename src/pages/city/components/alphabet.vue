@@ -27,6 +27,8 @@ export default {
   },
   updated () {
     this.startY = this.$refs['A'][0].offsetTop
+
+    console.log(this.$refs['A'][0].offsetTop, this.$refs['A'][0].clientHeight)
   },
   computed: {
     letters () {
@@ -53,6 +55,8 @@ export default {
           clearTimeout(this.timer)
         }
         this.timer = setTimeout(() => {
+          console.log("我要的高度", e.touches[0].clientY);
+
           const touchY = e.touches[0].clientY - 79
           const index = Math.floor((touchY - this.startY) / 20)
           if (index >= 0 && index < this.letters.length) {
